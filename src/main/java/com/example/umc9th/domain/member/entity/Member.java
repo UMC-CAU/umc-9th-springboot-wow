@@ -70,9 +70,7 @@ public class Member extends BaseEntity {
 
     @Column(name = "sns_type", nullable = false)
     @Enumerated(EnumType.STRING)
-    @Builder.Default
-    private SNSType sns_type = SNSType.NONE;
-
+    private SNSType sns_type;
     //관계의 주인이 아님. 오직 읽기만 가능한 쪽.
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Review> reviews = new ArrayList<>();
