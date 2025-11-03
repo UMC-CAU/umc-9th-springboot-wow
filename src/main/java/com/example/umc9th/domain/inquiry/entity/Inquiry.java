@@ -1,5 +1,6 @@
 package com.example.umc9th.domain.inquiry.entity;
 
+import com.example.umc9th.domain.member.entity.Member;
 import com.example.umc9th.global.entity.BaseEntity;
 import com.example.umc9th.domain.inquiry.enums.*;
 import jakarta.persistence.*;
@@ -30,4 +31,8 @@ public class Inquiry extends BaseEntity{
     @Column(name = "is_responsed", nullable = false)
     @Builder.Default
     private Boolean isResponsed = false;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id", nullable = false)
+    private Member member;
 }
