@@ -26,9 +26,9 @@ public class Store extends BaseEntity{
     private Food food;
 
     //기존에는 location 엔티티를 따로 만들었는데 관계 설정이 복잡해 그냥 Address ENUM으로..
-    @Column(name = "region", nullable = false)
+    @Column(name = "address", nullable = false)
     @Enumerated(EnumType.STRING)
-    private Address region;
+    private Address address;
 
     @Column(name = "owner_id")
     private Long ownerId;

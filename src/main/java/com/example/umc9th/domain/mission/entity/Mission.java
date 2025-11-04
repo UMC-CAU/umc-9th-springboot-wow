@@ -1,5 +1,6 @@
 package com.example.umc9th.domain.mission.entity;
 
+import com.example.umc9th.domain.store.entity.Store;
 import com.example.umc9th.global.entity.BaseEntity;
 import com.example.umc9th.domain.mission.enums.Status;
 import jakarta.persistence.*;
@@ -21,7 +22,7 @@ public class Mission extends BaseEntity{
     @Column(name = "status", length = 15)
     @Enumerated(EnumType.STRING)
     @Builder.Default
-    private Status status = Status.ONGOING;
+    private Status status = Status.CHALLENGABLE;
 
     @Column(name = "min_order")
     private Integer minimumOrderAmount;
@@ -31,5 +32,9 @@ public class Mission extends BaseEntity{
 
     @Column(name = "point")
     private Integer point;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "store_id", nullable = false)
+    private Store store;
 
 }
