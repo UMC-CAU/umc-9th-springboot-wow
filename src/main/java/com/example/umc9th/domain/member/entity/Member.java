@@ -8,7 +8,8 @@ package com.example.umc9th.domain.member.entity;
 import com.example.umc9th.domain.member.enums.Gender;
 import com.example.umc9th.domain.member.enums.MemberStatus;
 import com.example.umc9th.global.auth.enums.SNSType;
-
+import com.example.umc9th.domain.member.entity.mapping.MemberFood;
+import com.example.umc9th.domain.member.entity.mapping.MemberMission;
 import com.example.umc9th.domain.review.entity.Review;
 import com.example.umc9th.global.entity.BaseEntity;
 import jakarta.persistence.*;
@@ -71,8 +72,15 @@ public class Member extends BaseEntity {
     @Column(name = "sns_type", nullable = false)
     @Enumerated(EnumType.STRING)
     private SNSType sns_type;
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<MemberFood> preferredFoods = new ArrayList<>();
+
     //관계의 주인이 아님. 오직 읽기만 가능한 쪽.
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Review> reviews = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<MemberMission> memberMissionList = new ArrayList<>();
 
 }

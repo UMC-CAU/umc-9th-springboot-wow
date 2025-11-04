@@ -4,11 +4,13 @@
 
 package com.example.umc9th.domain.food.entity;
 
-import com.example.umc9th.domain.member.entity.Member;
+import com.example.umc9th.domain.member.entity.mapping.MemberFood;
 import com.example.umc9th.global.entity.BaseEntity;
 import com.example.umc9th.domain.food.enums.FoodName;
 import jakarta.persistence.*;
 import lombok.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Builder
@@ -26,8 +28,7 @@ public class Food extends BaseEntity{
     @Enumerated(EnumType.STRING)
     private FoodName name;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "food_id", nullable = false)
-    private Food food;
+    @OneToMany(mappedBy = "food", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<MemberFood> membersWhoPrefer = new ArrayList<>();
 
 }

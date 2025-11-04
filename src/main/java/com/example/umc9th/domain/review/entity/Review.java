@@ -3,6 +3,7 @@
 
 package com.example.umc9th.domain.review.entity;
 
+import com.example.umc9th.domain.store.entity.Store;
 import com.example.umc9th.global.entity.BaseEntity;
 import com.example.umc9th.domain.member.entity.Member;
 import jakarta.persistence.*;
@@ -28,13 +29,15 @@ public class Review extends BaseEntity{
     @Column(name = "content")
     private String content;
 
-    //관계의 owner. 객체의 상태를 변경하면 db의 FK 컬럼에 영향을 줌.
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
 
-    //owner
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "reply_id")
     private ReviewReply reply;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "store_id")
+    private Store store;
 }
