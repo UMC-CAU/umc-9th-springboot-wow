@@ -22,7 +22,7 @@ public class Mission extends BaseEntity{
     @Column(name = "status", length = 15)
     @Enumerated(EnumType.STRING)
     @Builder.Default
-    private Status status = Status.ONGOING;
+    private Status status = Status.CHALLENGABLE;
 
     @Column(name = "min_order")
     private Integer minimumOrderAmount;
