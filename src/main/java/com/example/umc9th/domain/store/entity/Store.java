@@ -1,8 +1,8 @@
 package com.example.umc9th.domain.store.entity;
 
+import com.example.umc9th.domain.location.entity.Location;
 import com.example.umc9th.global.entity.BaseEntity;
 import com.example.umc9th.domain.food.entity.Food;
-import com.example.umc9th.domain.store.enums.Address;
 import com.example.umc9th.domain.store.enums.BusinessStatus;
 
 import jakarta.persistence.*;
@@ -25,10 +25,9 @@ public class Store extends BaseEntity{
     @JoinColumn(name = "food_id")
     private Food food;
 
-    //기존에는 location 엔티티를 따로 만들었는데 관계 설정이 복잡해 그냥 Address ENUM으로..
-    @Column(name = "address", nullable = false)
-    @Enumerated(EnumType.STRING)
-    private Address address;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "location_id", nullable = false)
+    private Location location;
 
     @Column(name = "owner_id")
     private Long ownerId;
