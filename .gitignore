@@ -9,6 +9,8 @@
 .gradle/
 # 테스트 보고서 및 임시 파일
 /target/
+# QueryDSL Q-Class
+build/generated/querydsl/
 
 # ---------------------------------------------------------------- #
 # IntelliJ IDEA
