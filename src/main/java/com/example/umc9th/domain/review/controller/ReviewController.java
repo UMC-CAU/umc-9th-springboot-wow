@@ -3,6 +3,7 @@ package com.example.umc9th.domain.review.controller;
 import com.example.umc9th.domain.review.entity.Review;
 import com.example.umc9th.domain.review.service.ReviewQueryService;
 import com.example.umc9th.domain.review.dto.ReviewResponseDTO;
+import com.example.umc9th.global.apiPayload.ApiResponse;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,19 +23,21 @@ public class ReviewController {
     }
 
     @GetMapping("/reviews/search")
-    public List<ReviewResponseDTO> searchReview(
+    public ApiResponse<List<ReviewResponseDTO>> searchReview(
             @RequestParam String query,
             @RequestParam String type
     ) {
         List<Review> result = reviewQueryService.searchReview(query, type);
 
-        return result.stream()
+        List<ReviewResponseDTO> responseDTOs = result.stream()
                 .map(ReviewResponseDTO::toDTO)
                 .collect(Collectors.toList());
+
+        return ApiResponse.onSuccess(responseDTOs);
     }
 
     @GetMapping("/my-reviews")
-    public List<ReviewResponseDTO> getMyReviews(
+    public ApiResponse<List<ReviewResponseDTO>> getMyReviews(
             Principal principal,
             @RequestParam(required = false) String storeName,
             @RequestParam(required = false) String ratingRange) {
@@ -46,14 +49,15 @@ public class ReviewController {
             System.out.println("경고: 인증 정보(Principal)가 없어 memberId 1000L로 임시 처리합니다.");
         } else {
             //로그인 상태
-            // 실제 애플리케이션에서는 예외 처리(NumberFormatException) 및 Member ID 검증 필요!!
             memberId = Long.parseLong(principal.getName());
         }
 
         List<Review> reviews = reviewQueryService.getMyReviews(memberId, storeName, ratingRange);
 
-        return reviews.stream()
+        List<ReviewResponseDTO> responseDTOs = reviews.stream()
                 .map(ReviewResponseDTO::toDTO)
                 .collect(Collectors.toList());
+
+        return ApiResponse.onSuccess(responseDTOs);
     }
 }
