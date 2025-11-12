@@ -5,6 +5,7 @@
 
 package com.example.umc9th.domain.member.entity;
 
+import com.example.umc9th.domain.location.entity.Location;
 import com.example.umc9th.domain.member.enums.Gender;
 import com.example.umc9th.domain.member.enums.MemberStatus;
 import com.example.umc9th.global.auth.enums.SNSType;
@@ -40,8 +41,9 @@ public class Member extends BaseEntity {
     @Builder.Default
     private Gender gender = Gender.NONE;
 
-    @Column(name = "address_main")
-    private String addressMain;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "location_id", nullable = false)
+    private Location location;
 
     @Column(name = "address_detail")
     private String addressDetail;
@@ -69,7 +71,7 @@ public class Member extends BaseEntity {
     @Column(name = "total_point", nullable = false)
     private Integer totalPoint;
 
-    @Column(name = "sns_type", nullable = false)
+    @Column(name = "sns_type", nullable = false, length = 20)
     @Enumerated(EnumType.STRING)
     private SNSType sns_type;
 

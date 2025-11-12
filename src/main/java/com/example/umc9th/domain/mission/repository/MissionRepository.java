@@ -14,11 +14,11 @@ public interface MissionRepository extends JpaRepository<Mission, Long> {
 
     // 기본 CRUD 메서드는 JpaRepository에 정의돼있음.
     @Query("SELECT m FROM Mission m JOIN m.store s " +
-            "WHERE s.address = :selectedAddress " +
+            "WHERE s.location = :selectedLocation " +
             "AND m.status IN :statusList " +
             "AND m.dueDate >= :today")
     Page<Mission> findAvailableMissionsByRegion(
-            @Param("selectedAddress") String selectedAddress,
+            @Param("selectedLocation") String selectedLocation,
             @Param("today") LocalDate today,
             @Param("statusList") List<String> statusList,
             Pageable pageable

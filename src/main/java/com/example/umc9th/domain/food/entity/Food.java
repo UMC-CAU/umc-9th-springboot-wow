@@ -7,6 +7,7 @@ package com.example.umc9th.domain.food.entity;
 import com.example.umc9th.domain.member.entity.mapping.MemberFood;
 import com.example.umc9th.global.entity.BaseEntity;
 import com.example.umc9th.domain.food.enums.FoodName;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import java.util.ArrayList;
@@ -29,6 +30,7 @@ public class Food extends BaseEntity{
     private FoodName name;
 
     @OneToMany(mappedBy = "food", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<MemberFood> membersWhoPrefer = new ArrayList<>();
 
 }
