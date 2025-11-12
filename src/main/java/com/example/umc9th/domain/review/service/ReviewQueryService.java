@@ -7,6 +7,7 @@ import com.querydsl.core.BooleanBuilder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -19,20 +20,18 @@ public class ReviewQueryService {
         QReview review = QReview.review;
         //BooleanBuilder 정의
         BooleanBuilder builder = new BooleanBuilder();
-        //BooleanBuilder 사용
 
-        // 동적 쿼리: 검색 조건
+        //BooleanBuilder 사용
         // 1. 지역(location) 검색 조건
         if (type.equals("location")) {
             builder.and(review.store.location.name.contains(query));
         }
 
-        // 2. 별점(star) 검색 조건 (>= Greater Than or Equal)
+        // 2. 별점(rating) 검색 조건
         else if (type.equals("rating")) {
-            builder.and(review.rating.goe(Float.parseFloat(query)));
-        }
+            builder.and(review.rating.goe(BigDecimal.valueOf(Float.parseFloat(query))));        }
 
-        // 3. 지역(location) 및 별점(star) 복합 검색 조건
+        // 3. 지역(location) 및 별점(rating) 복합 검색 조건
         else if (type.equals("both")) {
             String[] parts = query.split("&");
             if (parts.length == 2) {
@@ -41,8 +40,7 @@ public class ReviewQueryService {
 
                 builder.and(review.store.location.name.contains(firstQuery));
 
-                builder.and(review.rating.goe(Float.parseFloat(secondQuery)));
-            }
+                builder.and(review.rating.goe(BigDecimal.valueOf(Float.parseFloat(secondQuery))));            }
         }
         //Repository 사용 & 결과 매핑
         List<Review> reviewList = reviewRepository.searchReview(builder);
