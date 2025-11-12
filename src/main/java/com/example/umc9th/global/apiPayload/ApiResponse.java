@@ -27,12 +27,12 @@ public class ApiResponse<T> {
 
     // 성공한 경우 (result 포함)
     // 유연성과 기본값을 제공하기 위해 두 가지 메서드 작성.
-    // 1. 성공 시 (기본: GeneralSuccessCode.OK 사용)
+    // 1. 기본: GeneralSuccessCode.OK 사용
     public static <T> ApiResponse<T> onSuccess(T result) {
         return new ApiResponse<>(true, GeneralSuccessCode.OK.getCode(), GeneralSuccessCode.OK.getMessage(), result);
     }
 
-    // 2. 성공 시 (커스텀 BaseSuccessCode 사용, 예를 들어 GeneralSuccessCode.CREATED)
+    // 2. 커스텀 BaseSuccessCode 사용, 예를 들어 GeneralSuccessCode.CREATED
     public static <T> ApiResponse<T> of(BaseSuccessCode code, T result) {
         return new ApiResponse<>(true, code.getCode(), code.getMessage(), result);
     }
