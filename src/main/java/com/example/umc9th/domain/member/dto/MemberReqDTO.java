@@ -1,5 +1,6 @@
 package com.example.umc9th.domain.member.dto;
 
+import com.example.umc9th.domain.location.entity.Location;
 import com.example.umc9th.domain.member.enums.Gender;
 
 import java.time.LocalDate;
@@ -11,7 +12,7 @@ public class MemberReqDTO {
             String name,
             Gender gender,
             LocalDate birth,
-            Long locationId,
+            Location locationId,
             String addressDetail,
             String email,
             String phoneNumber,
