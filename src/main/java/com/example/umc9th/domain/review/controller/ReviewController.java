@@ -4,6 +4,7 @@ import com.example.umc9th.domain.review.entity.Review;
 import com.example.umc9th.domain.review.service.ReviewQueryService;
 import com.example.umc9th.domain.review.dto.ReviewResponseDTO;
 import com.example.umc9th.global.apiPayload.ApiResponse;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,13 +15,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api")
 public class ReviewController {
     private final ReviewQueryService reviewQueryService;
-
-    public ReviewController(ReviewQueryService reviewQueryService) {
-        this.reviewQueryService = reviewQueryService;
-    }
 
     @GetMapping("/reviews/search")
     public ApiResponse<List<ReviewResponseDTO>> searchReview(
