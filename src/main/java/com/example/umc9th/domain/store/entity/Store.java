@@ -1,13 +1,17 @@
 package com.example.umc9th.domain.store.entity;
 
+import com.example.umc9th.domain.location.entity.Location;
+import com.example.umc9th.domain.review.entity.Review;
 import com.example.umc9th.global.entity.BaseEntity;
 import com.example.umc9th.domain.food.entity.Food;
-import com.example.umc9th.domain.store.enums.Address;
 import com.example.umc9th.domain.store.enums.BusinessStatus;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Builder
@@ -22,13 +26,13 @@ public class Store extends BaseEntity{
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY) //양방향 매핑 필요x
-    @JoinColumn(name = "food_id")
+    @JoinColumn(name = "food_id", nullable = false)
+    @JsonIgnore
     private Food food;
 
-    //기존에는 location 엔티티를 따로 만들었는데 관계 설정이 복잡해 그냥 Address ENUM으로..
-    @Column(name = "address", nullable = false)
-    @Enumerated(EnumType.STRING)
-    private Address address;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "location_id", nullable = false)
+    private Location location;
 
     @Column(name = "owner_id")
     private Long ownerId;
@@ -42,5 +46,9 @@ public class Store extends BaseEntity{
     @Enumerated(EnumType.STRING)
     @Column(name = "business_status", length = 15)
     private BusinessStatus businessStatus;
+
+    @OneToMany(mappedBy = "store", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore // 💡 순환 참조 방지 (Store 조회 시 Review 리스트는 제외)
+    private List<Review> reviewList = new ArrayList<>();
 
 }

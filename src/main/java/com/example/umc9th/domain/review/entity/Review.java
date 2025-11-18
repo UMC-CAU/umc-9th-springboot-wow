@@ -6,6 +6,7 @@ package com.example.umc9th.domain.review.entity;
 import com.example.umc9th.domain.store.entity.Store;
 import com.example.umc9th.global.entity.BaseEntity;
 import com.example.umc9th.domain.member.entity.Member;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -31,13 +32,15 @@ public class Review extends BaseEntity{
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
+    @JsonIgnore
     private Member member;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "store_id")
+    @JsonIgnore
+    private Store store;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "reply_id")
     private ReviewReply reply;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "store_id")
-    private Store store;
 }
