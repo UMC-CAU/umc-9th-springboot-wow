@@ -1,12 +1,13 @@
 package com.example.umc9th.global.apiPayload.exception;
 
+import com.example.umc9th.global.apiPayload.code.BaseErrorCode;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
 @Getter
 @AllArgsConstructor
-public enum ExceptionCode {
+public enum ExceptionCode implements BaseErrorCode {
 
     // ----------------------------------------------------------------------
     // 1. 공통 오류 (COMMON)
@@ -47,10 +48,18 @@ public enum ExceptionCode {
     // HTTP 400: 잘못된 상태 전이
     MISSION_ALREADY_COMPLETED(HttpStatus.BAD_REQUEST, "MISSION4002", "이미 완료된 미션입니다."),
 
-    // ... 기타 도메인별 오류를 추가 정의
     ; // ENUM 정의 끝
 
     private final HttpStatus httpStatus;
     private final String code;
     private final String message;
+
+    @Override
+    public HttpStatus getStatus() { return httpStatus; }
+
+    @Override
+    public String getCode() { return code; }
+
+    @Override
+    public String getMessage() { return message; }
 }
