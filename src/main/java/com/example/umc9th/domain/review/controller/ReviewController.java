@@ -28,7 +28,7 @@ public class ReviewController {
         return ApiResponse.onSuccess(responseDTOs);
     }
 
-    @GetMapping("/my-reviews")
+    @GetMapping("/reviews/me")
     public ApiResponse<List<ReviewResponseDTO>> getMyReviews(
             Principal principal,
             @RequestParam(required = false) String storeName,
