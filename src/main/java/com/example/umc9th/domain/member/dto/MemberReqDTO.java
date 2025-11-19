@@ -16,6 +16,6 @@ public class MemberReqDTO {
             String addressDetail,
             String email,
             String phoneNumber,
-            List<Long> FoodIds
+            List<Long> preferCategory
     ) {}
 }
