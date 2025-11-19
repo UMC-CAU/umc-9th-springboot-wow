@@ -1,6 +1,5 @@
 package com.example.umc9th.domain.review.controller;
 
-import com.example.umc9th.domain.review.entity.Review;
 import com.example.umc9th.domain.review.service.ReviewQueryService;
 import com.example.umc9th.domain.review.dto.ReviewResponseDTO;
 import com.example.umc9th.global.apiPayload.ApiResponse;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -25,11 +23,7 @@ public class ReviewController {
             @RequestParam String query,
             @RequestParam String type
     ) {
-        List<Review> result = reviewQueryService.searchReview(query, type);
-
-        List<ReviewResponseDTO> responseDTOs = result.stream()
-                .map(ReviewResponseDTO::toDTO)
-                .collect(Collectors.toList());
+        List<ReviewResponseDTO> responseDTOs = reviewQueryService.searchReview(type, query);
 
         return ApiResponse.onSuccess(responseDTOs);
     }
@@ -40,7 +34,7 @@ public class ReviewController {
             @RequestParam(required = false) String storeName,
             @RequestParam(required = false) String ratingRange) {
 
-        Long memberId;
+        long memberId;
 
         if (principal == null) { //비로그인 상태
             memberId = 1000L;
@@ -50,11 +44,7 @@ public class ReviewController {
             memberId = Long.parseLong(principal.getName());
         }
 
-        List<Review> reviews = reviewQueryService.getMyReviews(memberId, storeName, ratingRange);
-
-        List<ReviewResponseDTO> responseDTOs = reviews.stream()
-                .map(ReviewResponseDTO::toDTO)
-                .collect(Collectors.toList());
+        List<ReviewResponseDTO> responseDTOs = reviewQueryService.getMyReviews(memberId, storeName, ratingRange);
 
         return ApiResponse.onSuccess(responseDTOs);
     }
