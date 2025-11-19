@@ -27,7 +27,6 @@ public class Store extends BaseEntity{
 
     @ManyToOne(fetch = FetchType.LAZY) //양방향 매핑 필요x
     @JoinColumn(name = "food_id", nullable = false)
-    @JsonIgnore
     private Food food;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -48,7 +47,6 @@ public class Store extends BaseEntity{
     private BusinessStatus businessStatus;
 
     @OneToMany(mappedBy = "store", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnore // 💡 순환 참조 방지 (Store 조회 시 Review 리스트는 제외)
     private List<Review> reviewList = new ArrayList<>();
 
 }
