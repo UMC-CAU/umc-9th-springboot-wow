@@ -9,5 +9,10 @@ public interface ReviewQueryDsl {
     List<Review> searchReview(
             Predicate predicate
     );
-    List<Review> findMyReviews(Long userId, String storeName, String ratingRange);
+
+    List<Review> findMyReviews(
+            Long userId,
+            String storeName,
+            String ratingRange
+    );
 }

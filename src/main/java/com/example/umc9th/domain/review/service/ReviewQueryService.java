@@ -9,13 +9,15 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import com.example.umc9th.domain.review.dto.ReviewResponseDTO;
 @Service
 @RequiredArgsConstructor
 public class ReviewQueryService {
 
     private final ReviewRepository reviewRepository;
-    public List<Review> searchReview(String type, String query){
+    public List<ReviewResponseDTO> searchReview(String type, String query){
         //Q클래스 정의
         QReview review = QReview.review;
         //BooleanBuilder 정의
@@ -44,14 +46,18 @@ public class ReviewQueryService {
         }
         //Repository 사용 & 결과 매핑
         List<Review> reviewList = reviewRepository.searchReview(builder);
-        //리턴
-        return reviewList;
+        // 서비스 계층이 엔티티를 ＤＴＯ로 변환하여 반환하도록
+        return reviewList.stream()
+                .map(ReviewResponseDTO::toDTO)
+                .collect(Collectors.toList());
     }
-    public List<Review> getMyReviews(Long memberId, String storeName, String ratingRange) {
+    public List<ReviewResponseDTO> getMyReviews(Long memberId, String storeName, String ratingRange) {
         // 1. 필수 조건 (memberId)과 선택적 필터 (storeName, ratingRange)를
-        //    모두 QueryDsl 커스텀 Repository 메서드로 전달합니다.
+        //    모두 QueryDsl 커스텀 Repository 메서드로 전달
+        List<Review> reviews = reviewRepository.findMyReviews(memberId, storeName, ratingRange);
 
-        // 2. Repository 계층에서 memberId를 기본 조건으로 BooleanBuilder에 조건을 조합하여 쿼리를 실행합니다.        return reviewRepository.findMyReviews(memberId, storeName, ratingRange);
-        return reviewRepository.findMyReviews(memberId, storeName, ratingRange);
+        return reviews.stream()
+                .map(ReviewResponseDTO::toDTO)
+                .collect(Collectors.toList());
     }
 }
