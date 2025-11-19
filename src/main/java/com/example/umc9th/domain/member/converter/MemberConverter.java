@@ -22,7 +22,7 @@ public class MemberConverter {
     ){
         return Member.builder()
                 .name(dto.name())
-                .dateOfBirth(dto.birth())
+                .dateOfBirth(dto.dateOfBirth())
                 .location(dto.locationId())
                 .addressDetail(dto.addressDetail())
                 .gender(dto.gender())
