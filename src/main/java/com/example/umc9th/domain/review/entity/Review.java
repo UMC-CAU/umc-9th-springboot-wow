@@ -32,12 +32,10 @@ public class Review extends BaseEntity{
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
-    @JsonIgnore
     private Member member;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "store_id")
-    @JsonIgnore
     private Store store;
 
     @OneToOne(fetch = FetchType.LAZY)
