@@ -6,7 +6,6 @@ import com.example.umc9th.global.entity.BaseEntity;
 import com.example.umc9th.domain.food.entity.Food;
 import com.example.umc9th.domain.store.enums.BusinessStatus;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import java.math.BigDecimal;
