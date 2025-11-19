@@ -11,11 +11,11 @@ public class MemberReqDTO {
     public record JoinDTO(
             String name,
             Gender gender,
-            LocalDate birth,
+            LocalDate dateOfBirth,
             Location locationId,
             String addressDetail,
             String email,
             String phoneNumber,
-            List<Long> preferFoodsIds
+            List<Long> FoodIds
     ) {}
 }
