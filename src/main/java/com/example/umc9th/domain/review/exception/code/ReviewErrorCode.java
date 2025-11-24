@@ -9,9 +9,6 @@ import org.springframework.http.HttpStatus;
 @AllArgsConstructor
 public enum ReviewErrorCode implements BaseErrorCode {
 
-    // HTTP 400: 이미 작성된 리뷰
-    REVIEW_ALREADY_EXIST(HttpStatus.BAD_REQUEST, "REVIEW4001", "이미 해당 가게에 리뷰를 작성했습니다."),
-
     // HTTP 400: 평점 범위 오류 (Validation에서 처리되지만, 비즈니스 로직 예외로도 정의 가능)
     RATING_OUT_OF_RANGE(HttpStatus.BAD_REQUEST, "REVIEW4002", "평점은 0.0점에서 5.0점 사이여야 합니다."),
 

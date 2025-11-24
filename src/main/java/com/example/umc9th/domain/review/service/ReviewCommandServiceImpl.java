@@ -33,12 +33,7 @@ public class ReviewCommandServiceImpl implements ReviewCommandService {
                 .orElseThrow(() -> new GeneralException(ExceptionCode.MEMBER_NOT_FOUND));
 
         Store store = storeRepository.findById(storeId)
-                .orElseThrow(() -> new GeneralException(ExceptionCode.STORE_NOT_FOUND)); // STORE_NOT_FOUND는 ExceptionCode에 정의되어 있다고 가정
-
-        if (reviewRepository.existsByMemberAndStore(member, store)) {
-            // ReviewErrorCode.REVIEW_ALREADY_EXIST를 사용하여 예외 발생
-            throw new ReviewException(ReviewErrorCode.REVIEW_ALREADY_EXIST);
-        }
+                .orElseThrow(() -> new GeneralException(ExceptionCode.STORE_NOT_FOUND));
 
         // 2. Review 엔티티 생성 및 저장
         Review newReview = Review.builder()
