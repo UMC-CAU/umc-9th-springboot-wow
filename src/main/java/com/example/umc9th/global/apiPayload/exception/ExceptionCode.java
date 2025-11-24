@@ -48,6 +48,14 @@ public enum ExceptionCode implements BaseErrorCode {
     // HTTP 400: 잘못된 상태 전이
     MISSION_ALREADY_COMPLETED(HttpStatus.BAD_REQUEST, "MISSION4002", "이미 완료된 미션입니다."),
 
+    // ----------------------------------------------------------------------
+    // 4. 가게 관련 오류 (STORE, 3xxx) - 새로운 섹션 추가
+    // ----------------------------------------------------------------------
+
+    // HTTP 404: 리소스 없음
+    STORE_NOT_FOUND(HttpStatus.NOT_FOUND, "STORE4001", "해당 가게를 찾을 수 없습니다."),
+
+
     ; // ENUM 정의 끝
 
     private final HttpStatus httpStatus;
