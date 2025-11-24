@@ -15,11 +15,6 @@ VALUES (1000, 'MEMBER_A', 101, 'a@test.com', '1990-01-01', 'ACTIVE', 0, 100, 'AP
 INSERT INTO member (id, name, location_id, email, date_of_birth, status, mission_num, total_point, sns_type, created_at, updated_at)
 VALUES (1001, 'MEMBER_B', 102, 'b@test.com', '1995-05-05', 'ACTIVE', 0, 50, 'GOOGLE', NOW(), NOW());
 
--- 4. MemberFood (사용자 선호 음식)
--- MEMBER_A는 '한식'을 선호함 (food_id=500)
-INSERT INTO member_food (member_id, food_id, created_at, updated_at) VALUES (1000, 500, NOW(), NOW());
--- MEMBER_B는 '양식'을 선호함
-INSERT INTO member_food (member_id, food_id, created_at, updated_at) VALUES (1001, 501, NOW(), NOW());
 
 -- 5. Store (가게)
 INSERT INTO store (id, name, location_id, food_id, owner_id, business_status, created_at, updated_at)
