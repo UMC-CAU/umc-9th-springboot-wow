@@ -76,6 +76,7 @@ public class Member extends BaseEntity {
     private SNSType sns_type;
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
     private List<MemberFood> preferredFoods = new ArrayList<>();
 
     //관계의 주인이 아님. 오직 읽기만 가능한 쪽.
