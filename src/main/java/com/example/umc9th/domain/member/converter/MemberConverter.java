@@ -25,6 +25,8 @@ public class MemberConverter {
                 .dateOfBirth(dto.dateOfBirth())
                 .location(dto.locationId())
                 .addressDetail(dto.addressDetail())
+                .email(dto.email())
+                .phoneNumber(dto.phoneNumber())
                 .gender(dto.gender())
                 .build();
     }
