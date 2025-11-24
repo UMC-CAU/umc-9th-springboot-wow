@@ -4,6 +4,8 @@ import com.example.umc9th.domain.member.entity.Member;
 import com.example.umc9th.domain.member.repository.MemberRepository;
 import com.example.umc9th.domain.review.dto.ReviewRequestDTO;
 import com.example.umc9th.domain.review.entity.Review;
+import com.example.umc9th.domain.review.exception.ReviewException;
+import com.example.umc9th.domain.review.exception.code.ReviewErrorCode;
 import com.example.umc9th.domain.review.repository.ReviewRepository;
 import com.example.umc9th.domain.store.entity.Store;
 import com.example.umc9th.domain.store.repository.StoreRepository;
@@ -32,6 +34,11 @@ public class ReviewCommandServiceImpl implements ReviewCommandService {
 
         Store store = storeRepository.findById(storeId)
                 .orElseThrow(() -> new GeneralException(ExceptionCode.STORE_NOT_FOUND)); // STORE_NOT_FOUND는 ExceptionCode에 정의되어 있다고 가정
+
+        if (reviewRepository.existsByMemberAndStore(member, store)) {
+            // ReviewErrorCode.REVIEW_ALREADY_EXIST를 사용하여 예외 발생
+            throw new ReviewException(ReviewErrorCode.REVIEW_ALREADY_EXIST);
+        }
 
         // 2. Review 엔티티 생성 및 저장
         Review newReview = Review.builder()
