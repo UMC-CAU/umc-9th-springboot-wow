@@ -4,9 +4,11 @@ import com.example.umc9th.domain.member.dto.MemberReqDTO;
 import com.example.umc9th.domain.member.dto.MemberResDTO;
 import com.example.umc9th.domain.member.entity.Member;
 
+import java.util.List;
+
 public class MemberConverter {
 
-    // Entity -> DTO
+    // 1. Entity -> DTO (JoinDTO)
     public static MemberResDTO.JoinDTO toJoinDTO(
             Member member
     ){
@@ -16,7 +18,7 @@ public class MemberConverter {
                 .build();
     }
 
-    // DTO -> Entity
+    // 2. DTO -> Entity (toMember)
     public static Member toMember(
             MemberReqDTO.JoinDTO dto
     ){
@@ -29,5 +31,24 @@ public class MemberConverter {
                 .phoneNumber(dto.phoneNumber())
                 .gender(dto.gender())
                 .build();
+    }
+
+    // 3. Entity -> DTO (MemberDetailDTO) 변환 메서드 추가
+    public static MemberResDTO.MemberDetailDTO toDetailDTO(
+            Member member,
+            List<String> preferFoodNames
+    ){
+        return new MemberResDTO.MemberDetailDTO(
+                member.getId(),
+                member.getName(),
+                member.getEmail(),
+                member.getGender(),
+                member.getAddressDetail(),
+
+                preferFoodNames,
+
+                member.getCreatedAt(),
+                member.getUpdatedAt()
+        );
     }
 }
