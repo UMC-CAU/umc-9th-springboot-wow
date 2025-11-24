@@ -2,6 +2,7 @@ package com.example.umc9th.domain.review.controller;
 
 import com.example.umc9th.domain.review.dto.ReviewRequestDTO;
 import com.example.umc9th.domain.review.entity.Review;
+import com.example.umc9th.domain.review.exception.code.ReviewSuccessCode;
 import com.example.umc9th.domain.review.service.ReviewCommandService;
 import com.example.umc9th.domain.review.service.ReviewQueryService;
 import com.example.umc9th.domain.review.dto.ReviewResponseDTO;
@@ -23,24 +24,24 @@ public class ReviewController {
     // 새로운 리뷰 추가 API
     @PostMapping("/stores/{storeId}/reviews")
     public ApiResponse<ReviewResponseDTO> addReview(
-            @PathVariable(name = "storeId") Long storeId, // ★ URL 경로에서 가게 ID를 받음
+            @PathVariable(name = "storeId") Long storeId,
             @RequestBody @Valid ReviewRequestDTO request) {
 
         // 1. 하드코딩할 회원 ID 정의 (개발 단계)
         final Long HARDCODED_MEMBER_ID = 1000L;
 
         // 2. 서비스 호출 및 엔티티 생성
-        // storeId는 경로 변수, request는 본문 데이터, memberId는 하드코딩 값
         Review newReview = reviewCommandService.addReview(
-                HARDCODED_MEMBER_ID, // 하드코딩된 회원 ID
-                storeId,             // URL에서 추출한 가게 ID
-                request              // 요청 본문 (rating, content)
+                HARDCODED_MEMBER_ID,
+                storeId,
+                request
         );
 
-        // 3. 응답 DTO로 변환
+        // 3. 응답 DTO로 변환 (DTO 내부에 구현된 정적 팩토리 메서드 사용)
         ReviewResponseDTO responseDTO = ReviewResponseDTO.toDTO(newReview);
 
-        return ApiResponse.onSuccess(responseDTO);
+        // 4. 명시적인 성공 코드와 함께 응답 반환 (HTTP 201 Created)
+        return ApiResponse.of(ReviewSuccessCode.REVIEW_CREATE_SUCCESS, responseDTO);
     }
 
     @GetMapping("/reviews/search")
