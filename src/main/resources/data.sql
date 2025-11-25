@@ -43,3 +43,12 @@ INSERT INTO review (id, rating, content, member_id, store_id, created_at, update
 INSERT INTO review (id, rating, content, member_id, store_id, created_at, updated_at) VALUES (314, 2.0, '자리가 좁아서 불편했어요.', 1000, 200, NOW(), NOW());
 INSERT INTO review (id, rating, content, member_id, store_id, created_at, updated_at) VALUES (315, 4.8, '데이트 장소로 최고!', 1000, 202, NOW(), NOW());
 INSERT INTO review (id, rating, content, member_id, store_id, created_at, updated_at) VALUES (316, 1.5, '주문 실수 있었어요.', 1000, 201, NOW(), NOW());
+
+-- 7. Mission (미션 데이터 추가)
+-- Mission 엔티티 필드: id, status, min_order, due_date, point, store_id, created_at, updated_at
+INSERT INTO mission (id, status, min_order, due_date, point, store_id, created_at, updated_at)
+VALUES (600, 'CHALLENGABLE', 15000, DATE_ADD(CURDATE(), INTERVAL 2 MONTH), 50, 200, NOW(), NOW());
+INSERT INTO mission (id, status, min_order, due_date, point, store_id, created_at, updated_at)
+VALUES (601, 'CHALLENGABLE', 20000, DATE_ADD(CURDATE(), INTERVAL 1 MONTH), 100, 200, NOW(), NOW());
+INSERT INTO mission (id, status, min_order, due_date, point, store_id, created_at, updated_at)
+VALUES (602, 'CHALLENGABLE', 10000, DATE_ADD(CURDATE(), INTERVAL 3 DAY), 30, 200, NOW(), NOW());
