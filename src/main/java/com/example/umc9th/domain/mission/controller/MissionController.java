@@ -28,7 +28,7 @@ public class MissionController {
         );
 
         MissionResponseDTO responseDTO = MissionResponseDTO.toDTO(newChallenge);
-        
+
         return ApiResponse.of(MissionSuccessCode.MISSION_CHALLENGE_SUCCESS, responseDTO);
     }
 }
