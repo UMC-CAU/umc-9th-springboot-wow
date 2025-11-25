@@ -1,5 +1,6 @@
 package com.example.umc9th.domain.mission.dto;
 
+import com.example.umc9th.domain.member.entity.mapping.MemberMission;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -15,6 +16,14 @@ public class MissionResponseDTO {
     private String status;
     private LocalDateTime created_at;
 
-    // 정적 팩토리 메서드 (향후 MemberMission 엔티티를 받아서 변환할 때 사용)
-    // 현재는 MemberMission 엔티티가 없으므로 생략
+    public static MissionResponseDTO toDTO(MemberMission memberMission) {
+        return MissionResponseDTO.builder()
+                .member_mission_id(memberMission.getId())
+                .mission_id(memberMission.getMission().getId())
+                .member_id(memberMission.getMember().getId())
+                .status(memberMission.getStatus().name())
+                .created_at(memberMission.getCreatedAt())
+                .build();
+    }
 }
+
