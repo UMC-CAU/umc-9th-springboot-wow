@@ -95,3 +95,71 @@ INSERT INTO mission (id, status, min_order, due_date, point, store_id, created_a
 VALUES (622, 'CHALLENGABLE', 20000, DATE_ADD(CURDATE(), INTERVAL 1 MONTH), 100, 201, NOW(), NOW());
 INSERT INTO mission (id, status, min_order, due_date, point, store_id, created_at, updated_at)
 VALUES (623, 'CHALLENGABLE', 10000, DATE_ADD(CURDATE(), INTERVAL 3 DAY), 30, 201, NOW(), NOW());
+
+
+UPDATE mission SET status = 'ONGOING', updated_at = NOW() WHERE id = 600;
+UPDATE mission SET status = 'ONGOING', updated_at = NOW() WHERE id = 601;
+UPDATE mission SET status = 'ONGOING', updated_at = NOW() WHERE id = 602;
+UPDATE mission SET status = 'ONGOING', updated_at = NOW() WHERE id = 603;
+UPDATE mission SET status = 'ONGOING', updated_at = NOW() WHERE id = 604;
+UPDATE mission SET status = 'ONGOING', updated_at = NOW() WHERE id = 605;
+UPDATE mission SET status = 'ONGOING', updated_at = NOW() WHERE id = 606;
+UPDATE mission SET status = 'ONGOING', updated_at = NOW() WHERE id = 607;
+UPDATE mission SET status = 'ONGOING', updated_at = NOW() WHERE id = 608;
+UPDATE mission SET status = 'ONGOING', updated_at = NOW() WHERE id = 609;
+UPDATE mission SET status = 'ONGOING', updated_at = NOW() WHERE id = 610;
+UPDATE mission SET status = 'ONGOING', updated_at = NOW() WHERE id = 611;
+UPDATE mission SET status = 'ONGOING', updated_at = NOW() WHERE id = 612;
+UPDATE mission SET status = 'ONGOING', updated_at = NOW() WHERE id = 613;
+UPDATE mission SET status = 'ONGOING', updated_at = NOW() WHERE id = 614;
+
+
+## 📋 member_id 1000이 mission_id 600~615에 도전하는 쿼리 (총 16개)
+
+INSERT INTO member_mission (status, member_id, mission_id, created_at, updated_at)
+VALUES ('ONGOING', 1000, 600, NOW(), NOW());
+
+INSERT INTO member_mission (status, member_id, mission_id, created_at, updated_at)
+VALUES ('ONGOING', 1000, 601, NOW(), NOW());
+
+INSERT INTO member_mission (status, member_id, mission_id, created_at, updated_at)
+VALUES ('ONGOING', 1000, 602, NOW(), NOW());
+
+INSERT INTO member_mission (status, member_id, mission_id, created_at, updated_at)
+VALUES ('ONGOING', 1000, 603, NOW(), NOW());
+
+INSERT INTO member_mission (status, member_id, mission_id, created_at, updated_at)
+VALUES ('ONGOING', 1000, 604, NOW(), NOW());
+
+INSERT INTO member_mission (status, member_id, mission_id, created_at, updated_at)
+VALUES ('ONGOING', 1000, 605, NOW(), NOW());
+
+INSERT INTO member_mission (status, member_id, mission_id, created_at, updated_at)
+VALUES ('ONGOING', 1000, 606, NOW(), NOW());
+
+INSERT INTO member_mission (status, member_id, mission_id, created_at, updated_at)
+VALUES ('ONGOING', 1000, 607, NOW(), NOW());
+
+INSERT INTO member_mission (status, member_id, mission_id, created_at, updated_at)
+VALUES ('ONGOING', 1000, 608, NOW(), NOW());
+
+INSERT INTO member_mission (status, member_id, mission_id, created_at, updated_at)
+VALUES ('ONGOING', 1000, 609, NOW(), NOW());
+
+INSERT INTO member_mission (status, member_id, mission_id, created_at, updated_at)
+VALUES ('ONGOING', 1000, 610, NOW(), NOW());
+
+INSERT INTO member_mission (status, member_id, mission_id, created_at, updated_at)
+VALUES ('ONGOING', 1000, 611, NOW(), NOW());
+
+INSERT INTO member_mission (status, member_id, mission_id, created_at, updated_at)
+VALUES ('ONGOING', 1000, 612, NOW(), NOW());
+
+INSERT INTO member_mission (status, member_id, mission_id, created_at, updated_at)
+VALUES ('ONGOING', 1000, 613, NOW(), NOW());
+
+INSERT INTO member_mission (status, member_id, mission_id, created_at, updated_at)
+VALUES ('ONGOING', 1000, 614, NOW(), NOW());
+
+INSERT INTO member_mission (status, member_id, mission_id, created_at, updated_at)
+VALUES ('ONGOING', 1000, 615, NOW(), NOW());
