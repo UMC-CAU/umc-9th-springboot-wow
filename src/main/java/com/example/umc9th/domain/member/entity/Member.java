@@ -71,11 +71,12 @@ public class Member extends BaseEntity {
     @Column(name = "total_point", nullable = false)
     private Integer totalPoint;
 
-    @Column(name = "sns_type", nullable = false, length = 20)
+    @Column(name = "sns_type", length = 20)
     @Enumerated(EnumType.STRING)
     private SNSType sns_type;
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
     private List<MemberFood> preferredFoods = new ArrayList<>();
 
     //관계의 주인이 아님. 오직 읽기만 가능한 쪽.
