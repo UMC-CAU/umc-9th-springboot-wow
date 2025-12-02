@@ -7,6 +7,7 @@ import com.example.umc9th.domain.review.service.ReviewCommandService;
 import com.example.umc9th.domain.review.service.ReviewQueryService;
 import com.example.umc9th.domain.review.dto.ReviewResponseDTO;
 import com.example.umc9th.global.apiPayload.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +18,7 @@ import com.example.umc9th.global.validation.annotation.PageCheck;
 import java.security.Principal;
 import java.util.List;
 
+@Tag(name = "Review", description = "리뷰 관련 API")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
