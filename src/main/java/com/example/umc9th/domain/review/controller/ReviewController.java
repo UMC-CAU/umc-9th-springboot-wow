@@ -11,6 +11,9 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import com.example.umc9th.domain.review.dto.ReviewListResponseDTO;
+import com.example.umc9th.global.validation.annotation.PageCheck;
+
 import java.security.Principal;
 import java.util.List;
 
@@ -55,10 +58,11 @@ public class ReviewController {
     }
 
     @GetMapping("/reviews/me")
-    public ApiResponse<List<ReviewResponseDTO>> getMyReviews(
+    public ApiResponse<ReviewListResponseDTO> getMyReviews(
             Principal principal,
             @RequestParam(required = false) String storeName,
-            @RequestParam(required = false) String ratingRange) {
+            @RequestParam(required = false) String ratingRange,
+            @RequestParam(name = "page") @PageCheck Integer page) {
 
         long memberId;
 
@@ -70,8 +74,8 @@ public class ReviewController {
             memberId = Long.parseLong(principal.getName());
         }
 
-        List<ReviewResponseDTO> responseDTOs = reviewQueryService.getMyReviews(memberId, storeName, ratingRange);
+        ReviewListResponseDTO responseDTO = reviewQueryService.getMyReviews(memberId, storeName, ratingRange, page);
 
-        return ApiResponse.onSuccess(responseDTOs);
+        return ApiResponse.onSuccess(responseDTO);
     }
 }
