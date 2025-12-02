@@ -6,9 +6,11 @@ import com.example.umc9th.domain.mission.service.MemberMissionCommandService;
 import com.example.umc9th.domain.mission.exception.code.MissionSuccessCode;
 import com.example.umc9th.global.apiPayload.ApiResponse;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+@Tag(name = "Mission", description = "미션 관련 API")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
