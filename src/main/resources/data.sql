@@ -46,9 +46,52 @@ INSERT INTO review (id, rating, content, member_id, store_id, created_at, update
 
 -- 7. Mission (미션 데이터 추가)
 -- Mission 엔티티 필드: id, status, min_order, due_date, point, store_id, created_at, updated_at
+-- store_id = 200 (총 20개)
 INSERT INTO mission (id, status, min_order, due_date, point, store_id, created_at, updated_at)
 VALUES (600, 'CHALLENGABLE', 15000, DATE_ADD(CURDATE(), INTERVAL 2 MONTH), 50, 200, NOW(), NOW());
 INSERT INTO mission (id, status, min_order, due_date, point, store_id, created_at, updated_at)
 VALUES (601, 'CHALLENGABLE', 20000, DATE_ADD(CURDATE(), INTERVAL 1 MONTH), 100, 200, NOW(), NOW());
 INSERT INTO mission (id, status, min_order, due_date, point, store_id, created_at, updated_at)
 VALUES (602, 'CHALLENGABLE', 10000, DATE_ADD(CURDATE(), INTERVAL 3 DAY), 30, 200, NOW(), NOW());
+INSERT INTO mission (id, status, min_order, due_date, point, store_id, created_at, updated_at)
+VALUES (603, 'CHALLENGABLE', 15000, DATE_ADD(CURDATE(), INTERVAL 2 MONTH), 50, 200, NOW(), NOW());
+INSERT INTO mission (id, status, min_order, due_date, point, store_id, created_at, updated_at)
+VALUES (604, 'CHALLENGABLE', 20000, DATE_ADD(CURDATE(), INTERVAL 1 MONTH), 100, 200, NOW(), NOW());
+INSERT INTO mission (id, status, min_order, due_date, point, store_id, created_at, updated_at)
+VALUES (605, 'CHALLENGABLE', 10000, DATE_ADD(CURDATE(), INTERVAL 3 DAY), 30, 200, NOW(), NOW());
+INSERT INTO mission (id, status, min_order, due_date, point, store_id, created_at, updated_at)
+VALUES (606, 'CHALLENGABLE', 15000, DATE_ADD(CURDATE(), INTERVAL 2 MONTH), 50, 200, NOW(), NOW());
+INSERT INTO mission (id, status, min_order, due_date, point, store_id, created_at, updated_at)
+VALUES (607, 'CHALLENGABLE', 20000, DATE_ADD(CURDATE(), INTERVAL 1 MONTH), 100, 200, NOW(), NOW());
+INSERT INTO mission (id, status, min_order, due_date, point, store_id, created_at, updated_at)
+VALUES (608, 'CHALLENGABLE', 10000, DATE_ADD(CURDATE(), INTERVAL 3 DAY), 30, 200, NOW(), NOW());
+INSERT INTO mission (id, status, min_order, due_date, point, store_id, created_at, updated_at)
+VALUES (609, 'CHALLENGABLE', 15000, DATE_ADD(CURDATE(), INTERVAL 2 MONTH), 50, 200, NOW(), NOW());
+INSERT INTO mission (id, status, min_order, due_date, point, store_id, created_at, updated_at)
+VALUES (610, 'CHALLENGABLE', 20000, DATE_ADD(CURDATE(), INTERVAL 1 MONTH), 100, 200, NOW(), NOW());
+INSERT INTO mission (id, status, min_order, due_date, point, store_id, created_at, updated_at)
+VALUES (611, 'CHALLENGABLE', 10000, DATE_ADD(CURDATE(), INTERVAL 3 DAY), 30, 200, NOW(), NOW());
+INSERT INTO mission (id, status, min_order, due_date, point, store_id, created_at, updated_at)
+VALUES (612, 'CHALLENGABLE', 15000, DATE_ADD(CURDATE(), INTERVAL 2 MONTH), 50, 200, NOW(), NOW());
+INSERT INTO mission (id, status, min_order, due_date, point, store_id, created_at, updated_at)
+VALUES (613, 'CHALLENGABLE', 20000, DATE_ADD(CURDATE(), INTERVAL 1 MONTH), 100, 200, NOW(), NOW());
+INSERT INTO mission (id, status, min_order, due_date, point, store_id, created_at, updated_at)
+VALUES (614, 'CHALLENGABLE', 10000, DATE_ADD(CURDATE(), INTERVAL 3 DAY), 30, 200, NOW(), NOW());
+INSERT INTO mission (id, status, min_order, due_date, point, store_id, created_at, updated_at)
+VALUES (615, 'CHALLENGABLE', 15000, DATE_ADD(CURDATE(), INTERVAL 2 MONTH), 50, 200, NOW(), NOW());
+INSERT INTO mission (id, status, min_order, due_date, point, store_id, created_at, updated_at)
+VALUES (616, 'CHALLENGABLE', 20000, DATE_ADD(CURDATE(), INTERVAL 1 MONTH), 100, 200, NOW(), NOW());
+INSERT INTO mission (id, status, min_order, due_date, point, store_id, created_at, updated_at)
+VALUES (617, 'CHALLENGABLE', 10000, DATE_ADD(CURDATE(), INTERVAL 3 DAY), 30, 200, NOW(), NOW());
+INSERT INTO mission (id, status, min_order, due_date, point, store_id, created_at, updated_at)
+VALUES (618, 'CHALLENGABLE', 15000, DATE_ADD(CURDATE(), INTERVAL 2 MONTH), 50, 200, NOW(), NOW());
+INSERT INTO mission (id, status, min_order, due_date, point, store_id, created_at, updated_at)
+VALUES (619, 'CHALLENGABLE', 20000, DATE_ADD(CURDATE(), INTERVAL 1 MONTH), 100, 200, NOW(), NOW());
+INSERT INTO mission (id, status, min_order, due_date, point, store_id, created_at, updated_at)
+VALUES (620, 'CHALLENGABLE', 10000, DATE_ADD(CURDATE(), INTERVAL 3 DAY), 30, 201, NOW(), NOW());
+INSERT INTO mission (id, status, min_order, due_date, point, store_id, created_at, updated_at)
+VALUES (621, 'CHALLENGABLE', 15000, DATE_ADD(CURDATE(), INTERVAL 2 MONTH), 50, 201, NOW(), NOW());
+INSERT INTO mission (id, status, min_order, due_date, point, store_id, created_at, updated_at)
+VALUES (622, 'CHALLENGABLE', 20000, DATE_ADD(CURDATE(), INTERVAL 1 MONTH), 100, 201, NOW(), NOW());
+INSERT INTO mission (id, status, min_order, due_date, point, store_id, created_at, updated_at)
+VALUES (623, 'CHALLENGABLE', 10000, DATE_ADD(CURDATE(), INTERVAL 3 DAY), 30, 201, NOW(), NOW());
