@@ -7,6 +7,9 @@ import com.example.umc9th.domain.review.service.ReviewCommandService;
 import com.example.umc9th.domain.review.service.ReviewQueryService;
 import com.example.umc9th.domain.review.dto.ReviewResponseDTO;
 import com.example.umc9th.global.apiPayload.ApiResponse;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -27,31 +30,37 @@ public class ReviewController {
     private final ReviewCommandService reviewCommandService;
 
     // 새로운 리뷰 추가 API
+    @Operation(summary = "새로운 리뷰 추가", description = "특정 가게에 사용자가 새로운 리뷰를 작성합니다.")
+    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "201", description = "리뷰 작성 성공")
+    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "요청 본문(DTO) 유효성 검사 실패")
+    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "404", description = "가게 또는 멤버를 찾을 수 없음")
     @PostMapping("/stores/{storeId}/reviews")
     public ApiResponse<ReviewResponseDTO> addReview(
+            @Parameter(description = "리뷰를 작성할 가게의 ID", required = true)
             @PathVariable(name = "storeId") Long storeId,
+            @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "리뷰 생성에 필요한 정보", required = true)
             @RequestBody @Valid ReviewRequestDTO request) {
 
-        // 1. 하드코딩할 회원 ID 정의 (개발 단계)
         final Long HARDCODED_MEMBER_ID = 1000L;
 
-        // 2. 서비스 호출 및 엔티티 생성
         Review newReview = reviewCommandService.addReview(
                 HARDCODED_MEMBER_ID,
                 storeId,
                 request
         );
 
-        // 3. 응답 DTO로 변환 (DTO 내부에 구현된 정적 팩토리 메서드 사용)
         ReviewResponseDTO responseDTO = ReviewResponseDTO.toDTO(newReview);
 
-        // 4. 명시적인 성공 코드와 함께 응답 반환 (HTTP 201 Created)
         return ApiResponse.of(ReviewSuccessCode.REVIEW_CREATE_SUCCESS, responseDTO);
     }
 
+    @Operation(summary = "리뷰 검색", description = "특정 조건(제목, 내용 등)으로 리뷰를 검색합니다.")
+    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "검색 성공")
     @GetMapping("/reviews/search")
     public ApiResponse<List<ReviewResponseDTO>> searchReview(
+            @Parameter(description = "검색 키워드", required = true)
             @RequestParam String query,
+            @Parameter(description = "검색 유형 (예: 'title', 'content', 'storeName')", required = true)
             @RequestParam String type
     ) {
         List<ReviewResponseDTO> responseDTOs = reviewQueryService.searchReview(type, query);
@@ -59,11 +68,17 @@ public class ReviewController {
         return ApiResponse.onSuccess(responseDTOs);
     }
 
+    @Operation(summary = "내 리뷰 목록 조회", description = "로그인된 사용자가 작성한 리뷰 목록을 필터링 및 페이징하여 조회합니다.")
+    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "리뷰 목록 조회 성공")
+    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "페이지 번호 유효성 오류 (1 미만)")
     @GetMapping("/reviews/me")
     public ApiResponse<ReviewListResponseDTO> getMyReviews(
             Principal principal,
+            @Parameter(description = "가게 이름으로 필터링 (선택적)", required = false)
             @RequestParam(required = false) String storeName,
+            @Parameter(description = "평점 범위 필터링 (선택적, 예: '3-5')", required = false)
             @RequestParam(required = false) String ratingRange,
+            @Parameter(description = "조회할 페이지 번호 (1부터 시작, 10개 단위)", required = true)
             @RequestParam(name = "page") @PageCheck Integer page) {
 
         long memberId;
