@@ -40,6 +40,14 @@ public class MissionController {
         return ApiResponse.of(MissionSuccessCode.MISSION_CHALLENGE_SUCCESS, responseDTO);
     }
 
+    @Operation(summary = "특정 가게의 미션 목록 조회",
+            description = "특정 가게(storeId)가 현재 진행 중인 미션 목록을 페이징하여 조회합니다. 페이지 유효성 검사가 적용됩니다.",
+            responses = {
+                    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "미션 목록 조회 성공"),
+                    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "페이지 번호 유효성 오류 (1 미만)"),
+                    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "404", description = "가게를 찾을 수 없음")
+            }
+    )
     @GetMapping("/stores/{storeId}/missions")
     public ApiResponse<MissionListResponseDTO> getStoreMissions(
             @PathVariable(name = "storeId") Long storeId,
