@@ -8,12 +8,12 @@ INSERT INTO food (id, name, created_at, updated_at) VALUES (501, 'WESTERN', NOW(
 
 -- 3. Member (사용자)
 -- MEMBER_A (ID: 1000) - 미션 대상 사용자
-INSERT INTO member (id, name, location_name, email, date_of_birth, status, mission_num, total_point, sns_type, password, created_at, updated_at)
-VALUES (1000, 'MEMBER_A', '서울시 동작구', 'a@test.com', '1990-01-01', 'ACTIVE', 0, 100, 'APPLE', '$2a$12$xKD7qhEtLEojT5R.l9JaXO6enCUQTLpkSgeKuR2m5CwEjZpemacja', NOW(), NOW());
+INSERT INTO member (id, name, location_name, email, date_of_birth, status, mission_num, total_point, sns_type, password, role, created_at, updated_at)
+VALUES (1000, 'MEMBER_A', '서울시 동작구', 'a@test.com', '1990-01-01', 'ACTIVE', 0, 100, 'APPLE', '$2a$12$xKD7qhEtLEojT5R.l9JaXO6enCUQTLpkSgeKuR2m5CwEjZpemacja', 'ROLE_ADMIN', NOW(), NOW());
 
 -- MEMBER_B (ID: 1001) - 미션 비대상 사용자 (위치가 다름)
 INSERT INTO member (id, name, location_name, email, date_of_birth, status, mission_num, total_point, sns_type, password, created_at, updated_at)
-VALUES (1001, 'MEMBER_B', '경기도 김포시','@test.com', '1995-05-05', 'ACTIVE', 0, 50, 'GOOGLE', '$2a$12$xKD7qhEtLEojT5R.l9JaXO6enCUQTLpkSgeKuR2m5CwEjZpemacja', NOW(), NOW());
+VALUES (1001, 'MEMBER_B', '경기도 김포시','b@test.com', '1995-05-05', 'ACTIVE', 0, 50, 'GOOGLE', '$2a$12$xKD7qhEtLEojT5R.l9JaXO6enCUQTLpkSgeKuR2m5CwEjZpemacja', NOW(), NOW());
 
 
 -- 5. Store (가게)
