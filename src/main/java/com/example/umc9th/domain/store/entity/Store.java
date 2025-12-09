@@ -28,9 +28,8 @@ public class Store extends BaseEntity{
     @JoinColumn(name = "food_id", nullable = false)
     private Food food;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "location_id", nullable = false)
-    private Location location;
+    @Column(name = "location_name", nullable = false)
+    private String locationName;
 
     @Column(name = "owner_id")
     private Long ownerId;

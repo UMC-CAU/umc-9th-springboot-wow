@@ -7,6 +7,9 @@ import com.querydsl.core.types.Predicate;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
@@ -36,7 +39,7 @@ public class ReviewQueryDslImpl implements ReviewQueryDsl {
     }
 
     @Override
-    public List<Review> findMyReviews(Long memberId, String storeName, String ratingRange) {
+    public Page<Review> findMyReviews(Long memberId, String storeName, String ratingRange, Pageable pageable) {
 
         JPAQueryFactory queryFactory = new JPAQueryFactory(em);
         QReview review = QReview.review;
@@ -54,11 +57,22 @@ public class ReviewQueryDslImpl implements ReviewQueryDsl {
             addRatingRangeCondition(builder, review, ratingRange.trim());
         }
 
-
-        return queryFactory
+        List<Review> content = queryFactory
                 .selectFrom(review)
                 .where(builder)
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
                 .fetch();
+
+        // 전체 개수 세는 쿼리
+        Long totalCount = queryFactory
+                .select(review.count())
+                .from(review)
+                .where(builder)
+                .fetchOne();
+
+        // Page 객체로 반환
+        return new PageImpl<>(content, pageable, totalCount);
     }
 
     private void addRatingRangeCondition(BooleanBuilder builder, QReview review, String ratingRange) {

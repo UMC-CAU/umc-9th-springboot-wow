@@ -13,6 +13,7 @@ import com.example.umc9th.domain.member.entity.mapping.MemberFood;
 import com.example.umc9th.domain.member.entity.mapping.MemberMission;
 import com.example.umc9th.domain.review.entity.Review;
 import com.example.umc9th.global.entity.BaseEntity;
+import com.example.umc9th.global.auth.enums.Role;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -33,6 +34,15 @@ public class Member extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false, unique = true)
+    private String email;
+
+    @Column(nullable = false)
+    private String password;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
     @Column(name = "name", length = 20, nullable = false)
     private String name;
 
@@ -41,15 +51,18 @@ public class Member extends BaseEntity {
     @Builder.Default
     private Gender gender = Gender.NONE;
 
+    /*
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "location_id", nullable = false)
     private Location location;
 
-    @Column(name = "address_detail")
-    private String addressDetail;
+     */
 
-    @Column(name = "email", length = 30, nullable = false)
-    private String email;
+    @Column(name = "location_name", nullable = false) // NULL 방지를 위해 NOT NULL 유지
+    private String locationName; // 새로운 위치 필드
+
+    @Column(name = "address_detail", nullable = true)
+    private String addressDetail;
 
     @Column(name = "date_of_birth", nullable = false)
     private LocalDate dateOfBirth;
@@ -66,16 +79,17 @@ public class Member extends BaseEntity {
     private LocalDateTime inactiveDate;
 
     @Column(name = "mission_num", nullable = false)
-    private Integer missionNum;
+    private Integer missionNum = 0;
 
     @Column(name = "total_point", nullable = false)
-    private Integer totalPoint;
+    private Integer totalPoint = 0;
 
-    @Column(name = "sns_type", nullable = false, length = 20)
+    @Column(name = "sns_type", length = 20)
     @Enumerated(EnumType.STRING)
     private SNSType sns_type;
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
     private List<MemberFood> preferredFoods = new ArrayList<>();
 
     //관계의 주인이 아님. 오직 읽기만 가능한 쪽.

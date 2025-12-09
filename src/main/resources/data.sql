@@ -1,33 +1,28 @@
--- 1. Location (동 단위까지의 위치라고 가정)
+/*-- 1. Location (동 단위까지의 위치라고 가정)
 INSERT INTO location (id, name) VALUES (101, '강남동'); -- 미션 대상 위치
 INSERT INTO location (id, name) VALUES (102, '송파동'); -- 미션 비대상 위치
-
+*/
 -- 2. Food (가게 종류 및 사용자 선호 음식)
 INSERT INTO food (id, name, created_at, updated_at) VALUES (500, 'KOREAN', NOW(), NOW());   -- 미션 대상 음식
 INSERT INTO food (id, name, created_at, updated_at) VALUES (501, 'WESTERN', NOW(), NOW());   -- 미션 비대상 음식
 
 -- 3. Member (사용자)
 -- MEMBER_A (ID: 1000) - 미션 대상 사용자
-INSERT INTO member (id, name, location_id, email, date_of_birth, status, mission_num, total_point, sns_type, created_at, updated_at)
-VALUES (1000, 'MEMBER_A', 101, 'a@test.com', '1990-01-01', 'ACTIVE', 0, 100, 'APPLE', NOW(), NOW());
+INSERT INTO member (id, name, location_name, email, date_of_birth, status, mission_num, total_point, sns_type, password, role, created_at, updated_at)
+VALUES (1000, 'MEMBER_A', '서울시 동작구', 'a@test.com', '1990-01-01', 'ACTIVE', 0, 100, 'APPLE', '$2a$12$xKD7qhEtLEojT5R.l9JaXO6enCUQTLpkSgeKuR2m5CwEjZpemacja', 'ROLE_ADMIN', NOW(), NOW());
 
 -- MEMBER_B (ID: 1001) - 미션 비대상 사용자 (위치가 다름)
-INSERT INTO member (id, name, location_id, email, date_of_birth, status, mission_num, total_point, sns_type, created_at, updated_at)
-VALUES (1001, 'MEMBER_B', 102, 'b@test.com', '1995-05-05', 'ACTIVE', 0, 50, 'GOOGLE', NOW(), NOW());
+INSERT INTO member (id, name, location_name, email, date_of_birth, status, mission_num, total_point, sns_type, password, created_at, updated_at)
+VALUES (1001, 'MEMBER_B', '경기도 김포시','b@test.com', '1995-05-05', 'ACTIVE', 0, 50, 'GOOGLE', '$2a$12$xKD7qhEtLEojT5R.l9JaXO6enCUQTLpkSgeKuR2m5CwEjZpemacja', NOW(), NOW());
 
--- 4. MemberFood (사용자 선호 음식)
--- MEMBER_A는 '한식'을 선호함 (food_id=500)
-INSERT INTO member_food (member_id, food_id, created_at, updated_at) VALUES (1000, 500, NOW(), NOW());
--- MEMBER_B는 '양식'을 선호함
-INSERT INTO member_food (member_id, food_id, created_at, updated_at) VALUES (1001, 501, NOW(), NOW());
 
 -- 5. Store (가게)
-INSERT INTO store (id, name, location_id, food_id, owner_id, business_status, created_at, updated_at)
-VALUES (200, '강남 한식당', 101, 500, 900, 'OPERATING', NOW(), NOW()); -- ⭐ 미션 대상 가게
-INSERT INTO store (id, name, location_id, food_id, owner_id, business_status, created_at, updated_at)
-VALUES (201, '강남 양식집', 101, 501, 901, 'OPERATING', NOW(), NOW()); -- 미션 비대상 (음식 불일치)
-INSERT INTO store (id, name, location_id, food_id, owner_id, business_status, created_at, updated_at)
-VALUES (202, '송파 한식당', 102, 500, 902, 'CLOSED', NOW(), NOW()); -- 미션 비대상 (위치 불일치)
+INSERT INTO store (id, name, location_name, food_id, owner_id, business_status, rating, created_at, updated_at)
+VALUES (200, '강남 한식당', '경기도 김포시', 500, 900, 'OPERATING', 0.0, NOW(), NOW()); -- ⭐ 미션 대상 가게
+INSERT INTO store (id, name, location_name, food_id, owner_id, business_status, rating, created_at, updated_at)
+VALUES (201, '강남 양식집', '경기도 김포시', 501, 901, 'OPERATING', 0.0, NOW(), NOW()); -- 미션 비대상 (음식 불일치)
+INSERT INTO store (id, name, location_name, food_id, owner_id, business_status, rating, created_at, updated_at)
+VALUES (202, '송파 한식당', '서울시 동작구', 500, 902, 'CLOSED', 0.0, NOW(), NOW()); -- 미션 비대상 (위치 불일치)
 
 -- 6. Review (미션 수행 결과와는 무관하며, 이전 '나의 리뷰' 테스트용 데이터로 유지)
 -- MEMBER_A의 리뷰 (rating: BigDecimal로 가정)
@@ -48,3 +43,123 @@ INSERT INTO review (id, rating, content, member_id, store_id, created_at, update
 INSERT INTO review (id, rating, content, member_id, store_id, created_at, updated_at) VALUES (314, 2.0, '자리가 좁아서 불편했어요.', 1000, 200, NOW(), NOW());
 INSERT INTO review (id, rating, content, member_id, store_id, created_at, updated_at) VALUES (315, 4.8, '데이트 장소로 최고!', 1000, 202, NOW(), NOW());
 INSERT INTO review (id, rating, content, member_id, store_id, created_at, updated_at) VALUES (316, 1.5, '주문 실수 있었어요.', 1000, 201, NOW(), NOW());
+
+-- 7. Mission (미션 데이터 추가)
+-- Mission 엔티티 필드: id, status, min_order, due_date, point, store_id, created_at, updated_at
+-- store_id = 200 (총 20개)
+INSERT INTO mission (id, status, min_order, due_date, point, store_id, created_at, updated_at)
+VALUES (600, 'CHALLENGABLE', 15000, DATE_ADD(CURDATE(), INTERVAL 2 MONTH), 50, 200, NOW(), NOW());
+INSERT INTO mission (id, status, min_order, due_date, point, store_id, created_at, updated_at)
+VALUES (601, 'CHALLENGABLE', 20000, DATE_ADD(CURDATE(), INTERVAL 1 MONTH), 100, 200, NOW(), NOW());
+INSERT INTO mission (id, status, min_order, due_date, point, store_id, created_at, updated_at)
+VALUES (602, 'CHALLENGABLE', 10000, DATE_ADD(CURDATE(), INTERVAL 3 DAY), 30, 200, NOW(), NOW());
+INSERT INTO mission (id, status, min_order, due_date, point, store_id, created_at, updated_at)
+VALUES (603, 'CHALLENGABLE', 15000, DATE_ADD(CURDATE(), INTERVAL 2 MONTH), 50, 200, NOW(), NOW());
+INSERT INTO mission (id, status, min_order, due_date, point, store_id, created_at, updated_at)
+VALUES (604, 'CHALLENGABLE', 20000, DATE_ADD(CURDATE(), INTERVAL 1 MONTH), 100, 200, NOW(), NOW());
+INSERT INTO mission (id, status, min_order, due_date, point, store_id, created_at, updated_at)
+VALUES (605, 'CHALLENGABLE', 10000, DATE_ADD(CURDATE(), INTERVAL 3 DAY), 30, 200, NOW(), NOW());
+INSERT INTO mission (id, status, min_order, due_date, point, store_id, created_at, updated_at)
+VALUES (606, 'CHALLENGABLE', 15000, DATE_ADD(CURDATE(), INTERVAL 2 MONTH), 50, 200, NOW(), NOW());
+INSERT INTO mission (id, status, min_order, due_date, point, store_id, created_at, updated_at)
+VALUES (607, 'CHALLENGABLE', 20000, DATE_ADD(CURDATE(), INTERVAL 1 MONTH), 100, 200, NOW(), NOW());
+INSERT INTO mission (id, status, min_order, due_date, point, store_id, created_at, updated_at)
+VALUES (608, 'CHALLENGABLE', 10000, DATE_ADD(CURDATE(), INTERVAL 3 DAY), 30, 200, NOW(), NOW());
+INSERT INTO mission (id, status, min_order, due_date, point, store_id, created_at, updated_at)
+VALUES (609, 'CHALLENGABLE', 15000, DATE_ADD(CURDATE(), INTERVAL 2 MONTH), 50, 200, NOW(), NOW());
+INSERT INTO mission (id, status, min_order, due_date, point, store_id, created_at, updated_at)
+VALUES (610, 'CHALLENGABLE', 20000, DATE_ADD(CURDATE(), INTERVAL 1 MONTH), 100, 200, NOW(), NOW());
+INSERT INTO mission (id, status, min_order, due_date, point, store_id, created_at, updated_at)
+VALUES (611, 'CHALLENGABLE', 10000, DATE_ADD(CURDATE(), INTERVAL 3 DAY), 30, 200, NOW(), NOW());
+INSERT INTO mission (id, status, min_order, due_date, point, store_id, created_at, updated_at)
+VALUES (612, 'CHALLENGABLE', 15000, DATE_ADD(CURDATE(), INTERVAL 2 MONTH), 50, 200, NOW(), NOW());
+INSERT INTO mission (id, status, min_order, due_date, point, store_id, created_at, updated_at)
+VALUES (613, 'CHALLENGABLE', 20000, DATE_ADD(CURDATE(), INTERVAL 1 MONTH), 100, 200, NOW(), NOW());
+INSERT INTO mission (id, status, min_order, due_date, point, store_id, created_at, updated_at)
+VALUES (614, 'CHALLENGABLE', 10000, DATE_ADD(CURDATE(), INTERVAL 3 DAY), 30, 200, NOW(), NOW());
+INSERT INTO mission (id, status, min_order, due_date, point, store_id, created_at, updated_at)
+VALUES (615, 'CHALLENGABLE', 15000, DATE_ADD(CURDATE(), INTERVAL 2 MONTH), 50, 200, NOW(), NOW());
+INSERT INTO mission (id, status, min_order, due_date, point, store_id, created_at, updated_at)
+VALUES (616, 'CHALLENGABLE', 20000, DATE_ADD(CURDATE(), INTERVAL 1 MONTH), 100, 200, NOW(), NOW());
+INSERT INTO mission (id, status, min_order, due_date, point, store_id, created_at, updated_at)
+VALUES (617, 'CHALLENGABLE', 10000, DATE_ADD(CURDATE(), INTERVAL 3 DAY), 30, 200, NOW(), NOW());
+INSERT INTO mission (id, status, min_order, due_date, point, store_id, created_at, updated_at)
+VALUES (618, 'CHALLENGABLE', 15000, DATE_ADD(CURDATE(), INTERVAL 2 MONTH), 50, 200, NOW(), NOW());
+INSERT INTO mission (id, status, min_order, due_date, point, store_id, created_at, updated_at)
+VALUES (619, 'CHALLENGABLE', 20000, DATE_ADD(CURDATE(), INTERVAL 1 MONTH), 100, 200, NOW(), NOW());
+INSERT INTO mission (id, status, min_order, due_date, point, store_id, created_at, updated_at)
+VALUES (620, 'CHALLENGABLE', 10000, DATE_ADD(CURDATE(), INTERVAL 3 DAY), 30, 201, NOW(), NOW());
+INSERT INTO mission (id, status, min_order, due_date, point, store_id, created_at, updated_at)
+VALUES (621, 'CHALLENGABLE', 15000, DATE_ADD(CURDATE(), INTERVAL 2 MONTH), 50, 201, NOW(), NOW());
+INSERT INTO mission (id, status, min_order, due_date, point, store_id, created_at, updated_at)
+VALUES (622, 'CHALLENGABLE', 20000, DATE_ADD(CURDATE(), INTERVAL 1 MONTH), 100, 201, NOW(), NOW());
+INSERT INTO mission (id, status, min_order, due_date, point, store_id, created_at, updated_at)
+VALUES (623, 'CHALLENGABLE', 10000, DATE_ADD(CURDATE(), INTERVAL 3 DAY), 30, 201, NOW(), NOW());
+
+
+UPDATE mission SET status = 'ONGOING', updated_at = NOW() WHERE id = 600;
+UPDATE mission SET status = 'ONGOING', updated_at = NOW() WHERE id = 601;
+UPDATE mission SET status = 'ONGOING', updated_at = NOW() WHERE id = 602;
+UPDATE mission SET status = 'ONGOING', updated_at = NOW() WHERE id = 603;
+UPDATE mission SET status = 'ONGOING', updated_at = NOW() WHERE id = 604;
+UPDATE mission SET status = 'ONGOING', updated_at = NOW() WHERE id = 605;
+UPDATE mission SET status = 'ONGOING', updated_at = NOW() WHERE id = 606;
+UPDATE mission SET status = 'ONGOING', updated_at = NOW() WHERE id = 607;
+UPDATE mission SET status = 'ONGOING', updated_at = NOW() WHERE id = 608;
+UPDATE mission SET status = 'ONGOING', updated_at = NOW() WHERE id = 609;
+UPDATE mission SET status = 'ONGOING', updated_at = NOW() WHERE id = 610;
+UPDATE mission SET status = 'ONGOING', updated_at = NOW() WHERE id = 611;
+UPDATE mission SET status = 'ONGOING', updated_at = NOW() WHERE id = 612;
+UPDATE mission SET status = 'ONGOING', updated_at = NOW() WHERE id = 613;
+UPDATE mission SET status = 'ONGOING', updated_at = NOW() WHERE id = 614;
+
+
+## 📋 member_id 1000이 mission_id 600~615에 도전하는 쿼리 (총 16개)
+
+INSERT INTO member_mission (status, member_id, mission_id, created_at, updated_at)
+VALUES ('ONGOING', 1000, 600, NOW(), NOW());
+
+INSERT INTO member_mission (status, member_id, mission_id, created_at, updated_at)
+VALUES ('ONGOING', 1000, 601, NOW(), NOW());
+
+INSERT INTO member_mission (status, member_id, mission_id, created_at, updated_at)
+VALUES ('ONGOING', 1000, 602, NOW(), NOW());
+
+INSERT INTO member_mission (status, member_id, mission_id, created_at, updated_at)
+VALUES ('ONGOING', 1000, 603, NOW(), NOW());
+
+INSERT INTO member_mission (status, member_id, mission_id, created_at, updated_at)
+VALUES ('ONGOING', 1000, 604, NOW(), NOW());
+
+INSERT INTO member_mission (status, member_id, mission_id, created_at, updated_at)
+VALUES ('ONGOING', 1000, 605, NOW(), NOW());
+
+INSERT INTO member_mission (status, member_id, mission_id, created_at, updated_at)
+VALUES ('ONGOING', 1000, 606, NOW(), NOW());
+
+INSERT INTO member_mission (status, member_id, mission_id, created_at, updated_at)
+VALUES ('ONGOING', 1000, 607, NOW(), NOW());
+
+INSERT INTO member_mission (status, member_id, mission_id, created_at, updated_at)
+VALUES ('ONGOING', 1000, 608, NOW(), NOW());
+
+INSERT INTO member_mission (status, member_id, mission_id, created_at, updated_at)
+VALUES ('ONGOING', 1000, 609, NOW(), NOW());
+
+INSERT INTO member_mission (status, member_id, mission_id, created_at, updated_at)
+VALUES ('ONGOING', 1000, 610, NOW(), NOW());
+
+INSERT INTO member_mission (status, member_id, mission_id, created_at, updated_at)
+VALUES ('ONGOING', 1000, 611, NOW(), NOW());
+
+INSERT INTO member_mission (status, member_id, mission_id, created_at, updated_at)
+VALUES ('ONGOING', 1000, 612, NOW(), NOW());
+
+INSERT INTO member_mission (status, member_id, mission_id, created_at, updated_at)
+VALUES ('ONGOING', 1000, 613, NOW(), NOW());
+
+INSERT INTO member_mission (status, member_id, mission_id, created_at, updated_at)
+VALUES ('ONGOING', 1000, 614, NOW(), NOW());
+
+INSERT INTO member_mission (status, member_id, mission_id, created_at, updated_at)
+VALUES ('ONGOING', 1000, 615, NOW(), NOW());
