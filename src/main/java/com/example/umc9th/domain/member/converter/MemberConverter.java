@@ -9,7 +9,6 @@ import java.util.List;
 
 public class MemberConverter {
 
-    // 1. Entity -> DTO (JoinDTO)
     public static MemberResDTO.JoinDTO toJoinDTO(
             Member member
     ){
@@ -19,7 +18,6 @@ public class MemberConverter {
                 .build();
     }
 
-    // 2. DTO -> Entity (toMember)
     public static Member toMember(
             MemberReqDTO.JoinDTO dto,
             String password,
@@ -40,7 +38,6 @@ public class MemberConverter {
                 .build();
     }
 
-    // 3. Entity -> DTO (MemberDetailDTO) 변환 메서드 추가
     public static MemberResDTO.MemberDetailDTO toDetailDTO(
             Member member,
             List<String> preferFoodNames
@@ -57,5 +54,16 @@ public class MemberConverter {
                 member.getCreatedAt(),
                 member.getUpdatedAt()
         );
+    }
+
+    public static MemberResDTO.LoginDTO toLoginDTO(
+            Member member,
+            String accessToken
+    ) {
+        return MemberResDTO.LoginDTO.builder()
+                .memberId(member.getId())
+                .email(member.getEmail())
+                .accessToken(accessToken)
+                .build();
     }
 }
