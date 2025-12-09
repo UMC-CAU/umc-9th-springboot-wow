@@ -51,11 +51,17 @@ public class Member extends BaseEntity {
     @Builder.Default
     private Gender gender = Gender.NONE;
 
+    /*
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "location_id", nullable = false)
     private Location location;
 
-    @Column(name = "address_detail")
+     */
+
+    @Column(name = "location_name", nullable = false) // NULL 방지를 위해 NOT NULL 유지
+    private String locationName; // 새로운 위치 필드
+
+    @Column(name = "address_detail", nullable = true)
     private String addressDetail;
 
     @Column(name = "date_of_birth", nullable = false)
@@ -73,10 +79,10 @@ public class Member extends BaseEntity {
     private LocalDateTime inactiveDate;
 
     @Column(name = "mission_num", nullable = false)
-    private Integer missionNum;
+    private Integer missionNum = 0;
 
     @Column(name = "total_point", nullable = false)
-    private Integer totalPoint;
+    private Integer totalPoint = 0;
 
     @Column(name = "sns_type", length = 20)
     @Enumerated(EnumType.STRING)

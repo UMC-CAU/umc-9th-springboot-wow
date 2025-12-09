@@ -23,11 +23,13 @@ public class MemberReqDTO {
             @NotNull
             LocalDate dateOfBirth,
             @NotNull
-            Location locationId,
+            String locationName,
             @NotNull
             String addressDetail,
             @NotNull
             String phoneNumber,
-            List<Long> preferCategory
+            List<Long> preferCategory,
+            Integer missionNum,
+            Integer totalPoint
     ) {}
 }

@@ -31,10 +31,12 @@ public class MemberConverter {
                 .password(password)
                 .role(role)
                 .dateOfBirth(dto.dateOfBirth())
-                .location(dto.locationId())
+                .locationName(dto.locationName())
                 .addressDetail(dto.addressDetail())
                 .phoneNumber(dto.phoneNumber())
                 .gender(dto.gender())
+                .missionNum(0)
+                .totalPoint(0)
                 .build();
     }
 

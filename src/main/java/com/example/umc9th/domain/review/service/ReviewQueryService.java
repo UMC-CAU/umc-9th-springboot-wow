@@ -33,7 +33,7 @@ public class ReviewQueryService {
         //BooleanBuilder 사용
         // 1. 지역(location) 검색 조건
         if (type.equals("location")) {
-            builder.and(review.store.location.name.contains(query));
+            builder.and(review.store.locationName.contains(query));
         }
 
         // 2. 별점(rating) 검색 조건
@@ -47,7 +47,7 @@ public class ReviewQueryService {
                 String firstQuery = parts[0];
                 String secondQuery = parts[1];
 
-                builder.and(review.store.location.name.contains(firstQuery));
+                builder.and(review.store.locationName.contains(firstQuery));
 
                 builder.and(review.rating.goe(BigDecimal.valueOf(Float.parseFloat(secondQuery))));            }
         }
