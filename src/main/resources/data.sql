@@ -1,28 +1,28 @@
--- 1. Location (동 단위까지의 위치라고 가정)
+/*-- 1. Location (동 단위까지의 위치라고 가정)
 INSERT INTO location (id, name) VALUES (101, '강남동'); -- 미션 대상 위치
 INSERT INTO location (id, name) VALUES (102, '송파동'); -- 미션 비대상 위치
-
+*/
 -- 2. Food (가게 종류 및 사용자 선호 음식)
 INSERT INTO food (id, name, created_at, updated_at) VALUES (500, 'KOREAN', NOW(), NOW());   -- 미션 대상 음식
 INSERT INTO food (id, name, created_at, updated_at) VALUES (501, 'WESTERN', NOW(), NOW());   -- 미션 비대상 음식
 
 -- 3. Member (사용자)
 -- MEMBER_A (ID: 1000) - 미션 대상 사용자
-INSERT INTO member (id, name, location_id, email, date_of_birth, status, mission_num, total_point, sns_type, created_at, updated_at)
-VALUES (1000, 'MEMBER_A', 101, 'a@test.com', '1990-01-01', 'ACTIVE', 0, 100, 'APPLE', NOW(), NOW());
+INSERT INTO member (id, name, location_name, email, date_of_birth, status, mission_num, total_point, sns_type, password, created_at, updated_at)
+VALUES (1000, 'MEMBER_A', '서울시 동작구', 'a@test.com', '1990-01-01', 'ACTIVE', 0, 100, 'APPLE', '$2a$12$xKD7qhEtLEojT5R.l9JaXO6enCUQTLpkSgeKuR2m5CwEjZpemacja', NOW(), NOW());
 
 -- MEMBER_B (ID: 1001) - 미션 비대상 사용자 (위치가 다름)
-INSERT INTO member (id, name, location_id, email, date_of_birth, status, mission_num, total_point, sns_type, created_at, updated_at)
-VALUES (1001, 'MEMBER_B', 102, 'b@test.com', '1995-05-05', 'ACTIVE', 0, 50, 'GOOGLE', NOW(), NOW());
+INSERT INTO member (id, name, location_name, email, date_of_birth, status, mission_num, total_point, sns_type, password, created_at, updated_at)
+VALUES (1001, 'MEMBER_B', '경기도 김포시','@test.com', '1995-05-05', 'ACTIVE', 0, 50, 'GOOGLE', '$2a$12$xKD7qhEtLEojT5R.l9JaXO6enCUQTLpkSgeKuR2m5CwEjZpemacja', NOW(), NOW());
 
 
 -- 5. Store (가게)
-INSERT INTO store (id, name, location_id, food_id, owner_id, business_status, rating, created_at, updated_at)
-VALUES (200, '강남 한식당', 101, 500, 900, 'OPERATING', 0.0, NOW(), NOW()); -- ⭐ 미션 대상 가게
-INSERT INTO store (id, name, location_id, food_id, owner_id, business_status, rating, created_at, updated_at)
-VALUES (201, '강남 양식집', 101, 501, 901, 'OPERATING', 0.0, NOW(), NOW()); -- 미션 비대상 (음식 불일치)
-INSERT INTO store (id, name, location_id, food_id, owner_id, business_status, rating, created_at, updated_at)
-VALUES (202, '송파 한식당', 102, 500, 902, 'CLOSED', 0.0, NOW(), NOW()); -- 미션 비대상 (위치 불일치)
+INSERT INTO store (id, name, location_name, food_id, owner_id, business_status, rating, created_at, updated_at)
+VALUES (200, '강남 한식당', '경기도 김포시', 500, 900, 'OPERATING', 0.0, NOW(), NOW()); -- ⭐ 미션 대상 가게
+INSERT INTO store (id, name, location_name, food_id, owner_id, business_status, rating, created_at, updated_at)
+VALUES (201, '강남 양식집', '경기도 김포시', 501, 901, 'OPERATING', 0.0, NOW(), NOW()); -- 미션 비대상 (음식 불일치)
+INSERT INTO store (id, name, location_name, food_id, owner_id, business_status, rating, created_at, updated_at)
+VALUES (202, '송파 한식당', '서울시 동작구', 500, 902, 'CLOSED', 0.0, NOW(), NOW()); -- 미션 비대상 (위치 불일치)
 
 -- 6. Review (미션 수행 결과와는 무관하며, 이전 '나의 리뷰' 테스트용 데이터로 유지)
 -- MEMBER_A의 리뷰 (rating: BigDecimal로 가정)
