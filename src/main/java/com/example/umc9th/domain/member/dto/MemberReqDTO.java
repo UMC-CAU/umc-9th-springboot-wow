@@ -11,6 +11,13 @@ import java.util.List;
 
 public class MemberReqDTO {
 
+    public record LoginDTO(
+            @NotBlank
+            String email,
+            @NotBlank
+            String password
+    ){}
+
     public record JoinDTO(
             @NotBlank
             String name,

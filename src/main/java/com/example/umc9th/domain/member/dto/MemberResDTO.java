@@ -7,6 +7,14 @@ import java.util.List;
 
 public class MemberResDTO {
 
+    // 로그인
+    @Builder
+    public record LoginDTO(
+            Long memberId,
+            String email,
+            String accessToken
+    ){}
+
     @Builder
     public record JoinDTO(
             Long memberId,
