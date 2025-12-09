@@ -3,6 +3,7 @@ package com.example.umc9th.domain.member.converter;
 import com.example.umc9th.domain.member.dto.MemberReqDTO;
 import com.example.umc9th.domain.member.dto.MemberResDTO;
 import com.example.umc9th.domain.member.entity.Member;
+import com.example.umc9th.global.auth.enums.Role;
 
 import java.util.List;
 
@@ -20,14 +21,18 @@ public class MemberConverter {
 
     // 2. DTO -> Entity (toMember)
     public static Member toMember(
-            MemberReqDTO.JoinDTO dto
+            MemberReqDTO.JoinDTO dto,
+            String password,
+            Role role
     ){
         return Member.builder()
                 .name(dto.name())
+                .email(dto.email())
+                .password(password)
+                .role(role)
                 .dateOfBirth(dto.dateOfBirth())
                 .location(dto.locationId())
                 .addressDetail(dto.addressDetail())
-                .email(dto.email())
                 .phoneNumber(dto.phoneNumber())
                 .gender(dto.gender())
                 .build();

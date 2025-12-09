@@ -13,6 +13,7 @@ import com.example.umc9th.domain.member.entity.mapping.MemberFood;
 import com.example.umc9th.domain.member.entity.mapping.MemberMission;
 import com.example.umc9th.domain.review.entity.Review;
 import com.example.umc9th.global.entity.BaseEntity;
+import com.example.umc9th.global.auth.enums.Role;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -33,6 +34,15 @@ public class Member extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false, unique = true)
+    private String email;
+
+    @Column(nullable = false)
+    private String password;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
     @Column(name = "name", length = 20, nullable = false)
     private String name;
 
@@ -47,9 +57,6 @@ public class Member extends BaseEntity {
 
     @Column(name = "address_detail")
     private String addressDetail;
-
-    @Column(name = "email", length = 30, nullable = false)
-    private String email;
 
     @Column(name = "date_of_birth", nullable = false)
     private LocalDate dateOfBirth;
